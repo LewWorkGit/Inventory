@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerVision : MonoBehaviour
@@ -7,9 +6,9 @@ public class PlayerVision : MonoBehaviour
     private Coroutine visionCor;
     private Collider2D enemy;
     private Transform myTransform;
-    [SerializeField]private int visionDistance = 1;
-    [SerializeField]private LayerMask visionLayerMask;
-    [SerializeField]private MovePlayer player;
+    [SerializeField] private int visionDistance = 1;
+    [SerializeField] private LayerMask visionLayerMask;
+    [SerializeField] private MovePlayer player;
 
     private void Awake()
     {
@@ -28,7 +27,7 @@ public class PlayerVision : MonoBehaviour
 
             if (enemy != null)
             {
-                player.SetEnemyTransform(enemy.transform); 
+                player.SetEnemyTransform(enemy.transform);
             }
             else
             {
