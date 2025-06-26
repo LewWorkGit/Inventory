@@ -5,25 +5,13 @@ using Zenject;
 public class InventorySaveLoad : MonoBehaviour
 {
     [Inject] private List<ISlotModel> slots;
-    [Inject] private SaveLoadManager saveLoadManager;
     [SerializeField] private List<Items> items;
 
     private List<int> saveSlotslist;
     private List<int> saveCountItemlist;
 
-    private void OnEnable()
-    {
-        saveLoadManager.OnLoadOver += LoadInventory;
-    }
-    private void OnDisable()
-    {
-        saveLoadManager.OnLoadOver -= LoadInventory;
-    }
-
-
-
     //сохранение инвентаря
-    private void SaveInventory()
+    public void SaveInventory()
     {
 
         for (int i = 0; i < slots.Count; i++)
@@ -43,7 +31,7 @@ public class InventorySaveLoad : MonoBehaviour
     }
 
     //загрузка инвентаря
-    private void LoadInventory()
+    public void LoadInventory()
     {
         if (ES3.KeyExists("saveSlotslist"))
         {
@@ -70,10 +58,4 @@ public class InventorySaveLoad : MonoBehaviour
             }
         }
     }
-
-    private void OnApplicationQuit()
-    {
-        SaveInventory();
-    }
-
 }

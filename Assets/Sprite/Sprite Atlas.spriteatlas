@@ -94,7 +94,7 @@ SpriteAtlas:
   - AKammo
   - reloadButton
   - Makarov
-  - ICON_Status_Health01
+  - HealthIcon
   - shootButton
   - Leg
   - Hand

@@ -1,9 +1,12 @@
-using UnityEngine;
-using System.Collections;
 using System;
+using System.Collections;
+using UnityEngine;
+using Zenject;
 
 public class SaveLoadManager : MonoBehaviour
 {
+    [Inject]  private InventorySaveLoad inventory;
+
     [Header("Настройки")]
     private bool loadOnStart = true;
     private bool saveOnExit = true;
@@ -35,7 +38,7 @@ public class SaveLoadManager : MonoBehaviour
 
     private IEnumerator AutoSaveRoutine()
     {
-        while (true)
+        while (saveOnExit)
         {
             yield return new WaitForSeconds(saveInterval);
             SaveAll();
@@ -57,7 +60,8 @@ public class SaveLoadManager : MonoBehaviour
         {
             savable.SaveObject();
         }
-      
+        inventory.SaveInventory();
+
         lastSaveTime = Time.time;
     }
 
@@ -68,6 +72,7 @@ public class SaveLoadManager : MonoBehaviour
         {
             savable.LoadObject();
         }
+        inventory.LoadInventory();
 
         OnLoadOver?.Invoke();
     }

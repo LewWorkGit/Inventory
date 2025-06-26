@@ -3,13 +3,13 @@ using UnityEngine;
 public class RotateEnemy : MonoBehaviour
 {
     private Vector2 direction;
-    private Enemy target;
+    private IEnemy target;
     private Transform myTransform;
     private Vector3 lookVector = Vector3.one;
 
     void Awake()
     {
-        target = GetComponent<Enemy>();
+        target = GetComponent<IEnemy>();
         myTransform = transform;
     }
 

@@ -7,7 +7,12 @@ public class InventoryItemClick : MonoBehaviour, IPointerDownHandler
 {
     [Inject] private IPanelItemsMenu itemsMenu;
     [SerializeField] private Image itemImage;
-    [SerializeField] private InventorySlotModel slotModel;
+     private ISlotModel slotModel;
+
+    private void Awake()
+    {
+        slotModel = GetComponent<ISlotModel>();
+    }
 
     //клик по предмету в инвентаре
     void IPointerDownHandler.OnPointerDown(PointerEventData eventData)

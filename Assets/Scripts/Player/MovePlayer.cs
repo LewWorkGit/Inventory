@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public class MovePlayer : MonoBehaviour
+public class MovePlayer : MonoBehaviour, IMovePlayer
 {
     private NewControls inputs;
     private Rigidbody2D rbPlayer;

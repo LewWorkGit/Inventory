@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class AmmoUI : MonoBehaviour
+public class AmmoUI : MonoBehaviour,IAmmoUI
 {
     [SerializeField] private TextMeshProUGUI weaponsAmmoText;
     [SerializeField] private TextMeshProUGUI inventoryAmmoText;

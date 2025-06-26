@@ -2,14 +2,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IEnemy
 {
 
-    [SerializeField] private NavMeshAgent agent;
-    [SerializeField] private EnemyAnimations enemyAnimations;
+    [SerializeField] private NavMeshAgent agent;  
     [SerializeField] private int stopDistance = 6;
     [SerializeField] private int visionDistance = 15;
     [SerializeField] private LayerMask visionLayerMask;
+    private IEnemyAnimations enemyAnimations;
     private Collider2D targetColider;
     private Transform target;
     private Coroutine chasePlayerCor;
@@ -19,14 +19,52 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
+        enemyAnimations = GetComponent<IEnemyAnimations>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         myTrasform = transform;
-
-        visionCor = StartCoroutine(EnemyVisionCor());
-
     }
-    //зрение врага
+
+    private void Start()
+    {
+        StartVision();
+    }
+
+    //включить поиск игрока у врага
+    public void StartVision()
+    {
+        visionCor = StartCoroutine(EnemyVisionCor());
+    }
+    //отключить поиск игрока
+    public void StopVision()
+    {
+        if (visionCor != null)      
+        StopCoroutine(visionCor);        
+    }
+
+    //погоня за игроком
+    public void StartChasePlayer()
+    {
+        chasePlayerCor = StartCoroutine(ChasePlayerCor());
+    }
+
+    //остановить погоню
+    public void StopChasing()
+    {
+
+        if (chasePlayerCor != null)
+        StopCoroutine(chasePlayerCor);
+
+        agent.SetDestination(myTrasform.position);
+    }
+
+    //возвращает трансформ цели
+    public Transform GetTarget()
+    {
+        return target;
+    }
+
+   
     private IEnumerator EnemyVisionCor()
     {
         while (true)
@@ -37,26 +75,21 @@ public class Enemy : MonoBehaviour
             if (targetColider != null && target == null)
             {
                 target = targetColider.transform;
-                chasePlayerCor = StartCoroutine(ChasePlayerCor());
+                StartChasePlayer();
             }
         }
     }
 
-    //погоня за игроком
+   
     private IEnumerator ChasePlayerCor()
     {
-        if (visionCor != null)
-        {
-            StopCoroutine(visionCor);
-        }
+        StopVision();
 
         while (true)
         {
             agent.SetDestination(target.position);
 
-            yield return new WaitForSeconds(0.1f);
-
-            if (agent.remainingDistance > stopDistance)
+            if (Vector2.Distance(myTrasform.position, target.transform.position) > stopDistance)
             {
                 agent.SetDestination(target.position);
                 enemyAnimations.Run();
@@ -67,25 +100,8 @@ public class Enemy : MonoBehaviour
                 enemyAnimations.Attack();
 
             }
+
+            yield return new WaitForSeconds(0.1f);
         }
     }
-
-    //остановить погоню
-    public void StopChasing()
-    {
-
-        if (chasePlayerCor != null)
-        {
-            StopCoroutine(chasePlayerCor);
-        }
-
-        agent.SetDestination(myTrasform.position);
-    }
-
-
-    public Transform GetTarget()
-    {
-        return target;
-    }
-
 }

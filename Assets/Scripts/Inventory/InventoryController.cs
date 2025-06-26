@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-public class InventoryController : MonoBehaviour
+public class InventoryController : MonoBehaviour, IInventoryController
 {
     [Inject] private List<ISlotModel> slotsModel;
     [SerializeField] private CanvasGroup inventoryPanel;

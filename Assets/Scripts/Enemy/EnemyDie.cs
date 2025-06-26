@@ -1,18 +1,23 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyDie : MonoBehaviour
+public class EnemyDie : MonoBehaviour, IDieable
 {
-    [SerializeField] private Animator animator;
-    [SerializeField] private Enemy enemy;
+     private IEnemyAnimations animations;
+     private IEnemy enemy;
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Collider2D myCollider;
 
+    private void Awake()
+    {
+        enemy = GetComponent<IEnemy>();
+        animations = GetComponent<IEnemyAnimations>();
+    }
     //смерть врага
-    public void DieEnemy()
+    public void Die()
     {
         enemy.StopChasing();
-        animator.SetTrigger("die");
+        animations.Die();
         myCollider.enabled = false;
     }
 }

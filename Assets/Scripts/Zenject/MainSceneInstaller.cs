@@ -10,41 +10,45 @@ public class MainSceneInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        List<ISlotModel> slotsModel = slots
-             .Select(go => go.GetComponent<ISlotModel>())
-             .Where(slot => slot != null)
-             .ToList();
+         List<ISlotModel> slotsModel = slots
+         .Select(go => go.GetComponent<ISlotModel>())
+         .Where(slot => slot != null)
+         .ToList();
 
-        Container.Bind<List<ISlotModel>>()
-            .FromInstance(slotsModel)
-           .AsSingle();
+         Container.Bind<List<ISlotModel>>()
+        .FromInstance(slotsModel)
+        .AsSingle();
 
-        Container.Bind<IPanelItemsMenu>()
-            .FromComponentInHierarchy()
-           .AsSingle();
-
-          Container.Bind<MovePlayer>()
-          .FromComponentInHierarchy()
-          .AsSingle();
-
-         Container.Bind<PlayerHealthBar>()
-         .FromComponentInHierarchy()
-         .AsSingle();
-
-         Container.Bind<GameOver>()
-         .FromComponentInHierarchy()
-         .AsSingle();
-
-         Container.Bind<AmmoUI>()
+         Container.Bind<IPanelItemsMenu>()
         .FromComponentInHierarchy()
         .AsSingle();
 
-         Container.Bind<InventoryController>()
+        Container.Bind<IMovePlayer>()
         .FromComponentInHierarchy()
         .AsSingle();
 
-         Container.Bind<SaveLoadManager>()
+        Container.Bind<IHealthBar>()
         .FromComponentInHierarchy()
         .AsSingle();
+
+        Container.Bind<GameOver>()
+        .FromComponentInHierarchy()
+        .AsSingle();
+
+        Container.Bind<IAmmoUI>()
+       .FromComponentInHierarchy()
+       .AsSingle();
+
+        Container.Bind<IInventoryController>()
+       .FromComponentInHierarchy()
+       .AsSingle();
+
+        Container.Bind<SaveLoadManager>()
+       .FromComponentInHierarchy()
+       .AsSingle();
+
+        Container.Bind<InventorySaveLoad>()
+       .FromComponentInHierarchy()
+       .AsSingle();
     }
 }

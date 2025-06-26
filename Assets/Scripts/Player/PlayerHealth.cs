@@ -4,13 +4,14 @@ using Zenject;
 public class PlayerHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] private int health = 100;
-    [Inject] private PlayerHealthBar healthBar;
-    [Inject] private GameOver gameOver;
+    [Inject] private IHealthBar healthBar; 
     [Inject] private SaveLoadManager saveLoadManager;
-    [SerializeField] private MovePlayer movePlayer;
-    [SerializeField] private PlayerAnimation playerAnimations;
+    private IDieable diePlayer;
 
-
+    private void Awake()
+    {
+        diePlayer = GetComponent<IDieable>();
+    }
     private void OnEnable()
     {
         saveLoadManager.OnLoadOver += RefreshHealBar;
@@ -27,17 +28,12 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         {
             health -= damageValue;
             health = Mathf.Clamp(health, 0, 100);
-            healthBar.ChangeHealthBar(health);
+            healthBar.RefreshHealthBar(health);
 
             //смерть игрока
             if (health == 0)
             {
-                movePlayer.DisableInput();
-                playerAnimations.DiePlayer();
-                gameOver.GameOverPanelActive();
-                ES3.DeleteFile();
-                saveLoadManager.SetSaveExit(false);
-
+                diePlayer.Die();
             }
         }
 
@@ -45,6 +41,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     private void RefreshHealBar()
     {
-        healthBar.ChangeHealthBar(health);
+        healthBar.RefreshHealthBar(health);
     }
 }

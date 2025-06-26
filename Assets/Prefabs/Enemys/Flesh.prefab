@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 5567782798222908098}
   - component: {fileID: 2433261054135604701}
   - component: {fileID: 6652310284368380474}
-  - component: {fileID: 4934253114417433862}
+  - component: {fileID: 1715118214324591475}
   m_Layer: 8
   m_Name: Flesh
   m_TagString: Untagged
@@ -382,7 +382,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyDie: {fileID: 2433261054135604701}
-  enemyHealthBar: {fileID: 4934253114417433862}
 --- !u!114 &2433261054135604701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,7 +416,7 @@ MonoBehaviour:
   - {fileID: 1781749217488884531, guid: 5e424d72bd68fdf488d3fe01e155ed5b, type: 3}
   - {fileID: 518693402630801329, guid: 488369b21ee27d44a8aa755736468011, type: 3}
   - {fileID: 6536829941650391112, guid: 95a2f99c23f39a3428aa561407d55728, type: 3}
---- !u!114 &4934253114417433862
+--- !u!114 &1715118214324591475
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -426,11 +425,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4498442832002201715}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cda74b56e09afea4fae7fe5666d1f718, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b1c87565b5ec8844812bfd8e2939653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthBar: {fileID: 7695803563090046372}
-  enemyHealth: {fileID: 5567782798222908098}
+  hpBar: {fileID: 7695803563090046372}
 --- !u!1 &4498442832289535776
 GameObject:
   m_ObjectHideFlags: 0

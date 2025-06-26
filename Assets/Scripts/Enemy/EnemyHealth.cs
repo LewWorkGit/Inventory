@@ -3,8 +3,14 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
     private int enemyHelth = 50;
-    [SerializeField] private EnemyDie enemyDie;
-    [SerializeField] private EnemyHealthBar enemyHealthBar;
+    private IDieable enemyDie;
+    private IHealthBar healthBar;
+
+    private void Awake()
+    {
+        healthBar = GetComponent<IHealthBar>();
+        enemyDie = GetComponent<IDieable>();
+    }
 
     void IDamageable.Damage(int damageValue)
     {
@@ -12,11 +18,11 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         {
             enemyHelth -= damageValue;
             enemyHelth = Mathf.Clamp(enemyHelth, 0, 100);
-            enemyHealthBar.RefreshHealthBar(enemyHelth);
+            healthBar.RefreshHealthBar(enemyHelth);
 
             if (enemyHelth == 0)
             {
-                enemyDie.DieEnemy();
+                enemyDie.Die();
                 Destroy(gameObject, 1);
             }
         }

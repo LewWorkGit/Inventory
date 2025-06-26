@@ -8,10 +8,11 @@ public class PlayerVision : MonoBehaviour
     private Transform myTransform;
     [SerializeField] private int visionDistance = 1;
     [SerializeField] private LayerMask visionLayerMask;
-    [SerializeField] private MovePlayer player;
+     private IMovePlayer player;
 
     private void Awake()
     {
+        player = GetComponent<IMovePlayer>();
         myTransform = transform;
         visionCor = StartCoroutine(PlayerVisionCor());
     }

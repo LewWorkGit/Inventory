@@ -17,8 +17,8 @@ public abstract class Weapons : MonoBehaviour
     protected int bulletPoolCountIndex;
     protected Vector2 shotVector;
 
-    [Inject] protected MovePlayer player;
-    [Inject] protected AmmoUI ammoUI;
+    [Inject] protected IMovePlayer player;
+    [Inject] protected IAmmoUI ammoUI;
     [Inject] protected SaveLoadManager saveLoadManager;
 
 
@@ -45,12 +45,7 @@ public abstract class Weapons : MonoBehaviour
     {
         weaponAmmo = maxAmmo;
         audioSource = GetComponent<AudioSource>();
-        startHandRotationValue = rightHand.localRotation;
-
-        if (weaponAmmo == 0)
-        {
-            reload(context);
-        }
+        startHandRotationValue = rightHand.localRotation;  
 
         //задаем значение урона пулям в зависимости от урона оружия
         foreach (var item in bulletPoolMassive)
@@ -59,9 +54,7 @@ public abstract class Weapons : MonoBehaviour
         }
 
         saveLoadManager.OnLoadOver += RefreshAmmoUI;
-
     }
-
 
     private void FixedUpdate()
     {
